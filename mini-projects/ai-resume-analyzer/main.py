@@ -144,6 +144,7 @@ def extract_text(file_path):
 def parse_resume():
     file_path = "Resume.pdf"
     resume_text = extract_text(file_path)
+    print("RESUME",resume_text)
     model = "openai/gpt-oss-20b"
     messages = [
         {
