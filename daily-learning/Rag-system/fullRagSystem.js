@@ -42,7 +42,7 @@ const askLLM = async (userPrompt,context)=>{
             let messages = [
                 {
                     "role":"system",
-                    "content":`Answer the user Query based on the context:${context}`
+                    "content":`Answer the user Query strictly based on the context:${context}.Do not invent answer from yourself if it not relevant just say i dont have an idea about that.`
                 },
                 {
                     "role":"user",
@@ -56,7 +56,7 @@ const askLLM = async (userPrompt,context)=>{
 async function main() {
     
     let document_emb = [];
-    const query = "how many vaccations i get ";
+    const query = "How much vaccations i get";
     const query_emb = await getEmbedding(query);
     for(const line of document){
         const emb = await getEmbedding(line);
