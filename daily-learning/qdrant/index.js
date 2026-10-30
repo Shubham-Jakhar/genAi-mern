@@ -2,6 +2,7 @@ import {Groq} from 'groq-sdk'
 import dotenv from 'dotenv'
 import { cos_sim, pipeline,env } from "@huggingface/transformers";
 import { QdrantClient } from '@qdrant/js-client-rest';
+import document from './data.js';
 
 dotenv.config()
 env.allowRemoteModels = false;
@@ -32,8 +33,7 @@ async function createCollection(){
   );
 
   if (exists) {
-    console.log("Collection already exists");
-    return;
+    await qdrant.deleteCollection(COLLECTION);
   }
     await qdrant.createCollection(COLLECTION,{
         vectors:{
@@ -41,19 +41,26 @@ async function createCollection(){
             distance:"Cosine"
         }
     })
+
+    await qdrant.createPayloadIndex(COLLECTION,{
+        field_name:"category",
+        field_schema:"keyword"
+    })
+    await qdrant.createPayloadIndex(COLLECTION,{
+        field_name:"is_active",
+        field_schema:'bool'
+    })
 }
 
-async function storeText(id,text){
-    const vector = await getEmbedding(text);
+async function storeText(id,payload){
+    const vector = await getEmbedding(payload.text);
     try{
     await qdrant.upsert(COLLECTION,{
         points : [
             {
                 id:id,
                 vector:vector,
-                payload:{
-                    text:text
-                }
+                payload:payload
             }
         ]
     });
@@ -63,14 +70,7 @@ async function storeText(id,text){
 }
 
 
-const document = [
-    "Employees receive 24 days of paid leave per year.",
-    "Employees work from the office on Tuesday, Wednesday and Thursday. ",
-    "Monday and Friday are optional work-from-home days.",
-    "Employees receive Rs 3000 per month for gym reimbursement.",
-    "Employees can claim Rs 2000 per month for home internet.",
-    "Employees have a 90 day notice period."
-    ]
+
 
 
 const askLLM = async (userPrompt,context)=>{
@@ -93,15 +93,32 @@ const askLLM = async (userPrompt,context)=>{
 async function main() {
     
     await createCollection();
-    const query = "How much holidays i get";
+    const query = "How many vaccations days do I get?";
     const query_emb = await getEmbedding(query);
     let id=1;
-    for(const line of document){
-        await storeText(id,line)
+    for(const doc of document){
+        await storeText(id,doc)
         id+=1
+    }
+    const rembiursement_filter = {
+        must:[
+            {
+                key:"category",
+                match:{
+                    value:"leave"
+                }
+            },
+            {
+                key:"is_active",
+                match:{
+                    value:true
+                }
+            }
+        ]
     }
     const context = await qdrant.query(COLLECTION,{
         query:query_emb,
+        filter:rembiursement_filter,
         limit:3,
         with_payload:true
     });
