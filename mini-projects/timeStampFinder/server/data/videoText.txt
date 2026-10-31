@@ -1,0 +1,1106 @@
+[00:00:00] Hello everyone, welcome to my channel,
+[00:00:01] Code Server with Mike. So today, we are
+[00:00:03] going to do LeetCode 365. It is marked
+[00:00:05] as medium. Let’s look at the motivation
+[00:00:07] . You don’t need to have a remarkable
+[00:00:09] beginning to create a remarkable life.
+[00:00:12] Right? Ups and downs will definitely
+[00:00:14] come. It won’t always be completely
+[00:00:16] smooth.
+[00:00:17] Okay? So, let’s look at the problem.
+[00:00:19] Twisted Mirror Path Count: You are given
+[00:00:22] an m by n binary grid, where the value
+[00:00:25] is either zero or one. Zero means it is
+[00:00:28] an empty cell, and one means, you know
+[00:00:30] what, there is a mirror there. Now let’s
+[00:00:33] see, a robot starts at the top-left
+[00:00:36] corner, that is grid 0, 0, and wants to
+[00:00:39] reach the bottom-right corner, m-1, n-1
+[00:00:42] . It can only move right or down. Okay?
+[00:00:45] Meaning, from a given cell, it can
+[00:00:47] either go right or go down.
+[00:00:50] If the robot attempts to move into a
+[00:00:52] mirror cell, it is reflected before
+[00:00:54] entering that cell. This means if it
+[00:00:57] tries to enter a mirror cell.
+[00:01:00] Let’s assume this cell of mine is a
+[00:01:03] mirror cell.
+[00:01:04] Its value is one, so it will be
+[00:01:06] reflected. Now, it explains where it
+[00:01:09] will be reflected. If it tries to move
+[00:01:11] right into a mirror, it is turned down.
+[00:01:14] This means that if the robot is standing
+[00:01:17] here, let’s say, and it went in this
+[00:01:21] right direction into this cell, then it
+[00:01:24] means it will be deflected down. Okay?
+[00:01:28] This means it was moving in the right
+[00:01:30] direction from here. Or you could also
+[00:01:33] say, from which direction did it arrive
+[00:01:35] at this cell? It arrived at this cell
+[00:01:37] from the left direction.
+[00:01:39] What is written after that? If it tries
+[00:01:41] to move down into a mirror. This means
+[00:01:43] that if it
+[00:01:47] is coming from above, coming in the down
+[00:01:49] direction, which in other words I can
+[00:01:51] say, from where is it coming into this
+[00:01:52] cell?
+[00:01:54] It is coming from up. Because I can see
+[00:01:56] it coming from above, right? Then it
+[00:01:58] will be deflected to the right. Like
+[00:02:01] this. It is turned right and moved into
+[00:02:03] a cell directly to the right of the
+[00:02:05] mirror. Okay? If this reflection would
+[00:02:08] cause the robot to move outside the grid
+[00:02:11] boundaries, the path is considered
+[00:02:13] invalid. Obviously, it is never supposed
+[00:02:15] to go outside the grid.
+[00:02:17] Return the number of unique valid paths
+[00:02:20] from 0, 0 to m-1, n-1, so it looks like
+[00:02:23] a DP and grids type of problem.
+[00:02:26] In DP and grids, we have created
+[00:02:28] problems where we had to find unique
+[00:02:30] valid paths from 0 to m-1, n-1, but what
+[00:02:33] is the extra thing added here?
+[00:02:36] A concept of a mirror has been added. So
+[00:02:38] let's see, the answer can be very large
+[00:02:41] . Do it using modulo 10 ^ 9 + 7. And if
+[00:02:44] a reflection moves the robot into a
+[00:02:47] mirror cell, the robot is immediately
+[00:02:49] reflected again based on the direction
+[00:02:51] it used to enter that mirror. Meaning,
+[00:02:54] what it wants to say is, let's assume
+[00:02:56] this was a mirror and there is another
+[00:02:59] mirror next to it. For example. So if
+[00:03:02] let's assume the robot was coming from
+[00:03:04] this side.
+[00:03:06] Then I can say, right, that in this cell
+[00:03:08] , where is it coming from? It is coming
+[00:03:11] from the left-hand side direction. Okay
+[00:03:13] ? So it will go this way. But if it was
+[00:03:16] coming from here, if let's assume the
+[00:03:18] robot was coming like this. I mean, in
+[00:03:21] other words, I want to say that it
+[00:03:23] entered this cell from the up direction
+[00:03:25] . So obviously, it will deflect towards
+[00:03:27] the right direction.
+[00:03:29] Now notice, this mirror cell, where did
+[00:03:31] it come from?
+[00:03:32] It came from the left-hand side. It came
+[00:03:34] from the left direction, so it will
+[00:03:36] deflect downwards. Meaning, this will
+[00:03:37] keep applying recursively. I mean, not
+[00:03:39] recursively, I mean if mirrors keep
+[00:03:41] coming, then deflection will keep
+[00:03:42] happening. Let's assume there is another
+[00:03:44] mirror here. Okay? So when it came down
+[00:03:46] from here, you see it entered this cell
+[00:03:48] from the up direction, so it will go
+[00:03:50] right here. So it will keep happening
+[00:03:51] like that. So it is explaining the same
+[00:03:52] thing here. The robot is immediately
+[00:03:54] reflected again based on the direction
+[00:03:56] it is used to enter that mirror. If it
+[00:03:58] entered while moving right it will be
+[00:03:59] turned down. If it entered while moving
+[00:04:01] down it will be turned right and this
+[00:04:03] process will go on as long as mirrors
+[00:04:05] keep appearing. Okay? So let's look at
+[00:04:08] the input grid. There is an example here
+[00:04:10] , 01 01 100, there are a total of five
+[00:04:13] possible paths here. To go from here to
+[00:04:16] there. Let's see what those paths are.
+[00:04:19] The very first path I can see is if I go
+[00:04:21] from here to here. So I have entered
+[00:04:24] this mirror cell from the left direction
+[00:04:28] . Right? So I will go downwards. Now
+[00:04:32] from here, I can either go here or I can
+[00:04:35] go there. Let's do one thing. Let's go
+[00:04:37] this way first and see. Now in this
+[00:04:39] mirror cell, I have come from the left
+[00:04:41] direction. So I will go down. So I found
+[00:04:44] this path. What is the second path?
+[00:04:46] Let's see, if I went from here to here,
+[00:04:49] then from here to here, I could go this
+[00:04:52] way. This is the second path. And what
+[00:04:55] other path is there? I see this one path
+[00:04:59] . Went from here to here. Went from here
+[00:05:01] to here.
+[00:05:03] Then from here to here; that makes three
+[00:05:07] . And one more could be this. Let's
+[00:05:09] erase this a little bit. Right?
+[00:05:11] So it doesn't look too messy, we found
+[00:05:14] three paths. See this possible path. One
+[00:05:16] , two, and from here, this makes four
+[00:05:19] paths. I think there is a fifth path,
+[00:05:21] this one. One, two, like this. Okay? So
+[00:05:25] there are a total of five possible paths
+[00:05:27] .
+[00:05:28] You just have to keep one thing in mind
+[00:05:30] , that when you arrive at a mirror cell
+[00:05:32] , you must know from where you entered
+[00:05:34] this mirror cell.
+[00:05:36] The whole problem is based on this.
+[00:05:37] Because the rule is based on exactly
+[00:05:39] where you entered the mirror cell from,
+[00:05:41] which I have specially mentioned here.
+[00:05:44] So if we assume the robot came into this
+[00:05:46] cell, it must know where it came from?
+[00:05:49] Did it come from up? Did it come from
+[00:05:52] the left cell? Right? Did it come from
+[00:05:56] the up cell?
+[00:05:58] Did it come from the left cell? This
+[00:06:01] must be known. Because if it comes from
+[00:06:04] up, where will it deflect? If it came
+[00:06:07] from up, it will have to deflect here to
+[00:06:10] the right-hand side. So let me write it
+[00:06:12] here. It will deflect to the right-hand
+[00:06:14] side.
+[00:06:15] If it came from the left-hand side into
+[00:06:18] this mirror cell, it would deflect down
+[00:06:20] , meaning to the cell below.
+[00:06:23] You just need to keep this in mind. Okay
+[00:06:25] ? So, keeping this point in mind, let's
+[00:06:28] try to build our thought process. So
+[00:06:30] look, you must remember this, or you
+[00:06:33] must have surely understood that this is
+[00:06:35] clearly a DP on grids problem. Because
+[00:06:38] most DP on grids problems are like this
+[00:06:40] . Right? So generally, in DP on grids,
+[00:06:43] what do I do? I just write the bottom-up
+[00:06:45] code. Because writing bottom-up is very
+[00:06:47] easy. But today, I will show you
+[00:06:49] recursion, memoization, and bottom-up,
+[00:06:51] all three. Okay? So we generally take a
+[00:06:56] DP array and I will show you what we
+[00:07:01] store there.
+[00:07:03] Let's assume there is a given cell, and
+[00:07:06] I need to find the answer for this. How
+[00:07:09] many ways are there to reach this cell?
+[00:07:12] So, what do we do in DP on grids? We
+[00:07:14] look at where this person could possibly
+[00:07:16] come from to reach this cell. The
+[00:07:18] problem clearly states that from a given
+[00:07:21] cell, I can either go right or go down.
+[00:07:23] So, from where can I reach this cell?
+[00:07:26] Either I can come from above. If I take
+[00:07:28] a right from here, or I can come from
+[00:07:31] here. If I take a down move from above,
+[00:07:34] or take a right move from this left cell
+[00:07:36] .
+[00:07:37] So, it's clear here that to reach this i
+[00:07:40] , j, I can reach either from up or from
+[00:07:42] the left-hand side.
+[00:07:46] It is very easy to calculate that DP of
+[00:07:50] i, j, meaning the total ways to reach
+[00:07:55] this i, j cell.
+[00:08:00] To reach i, j is equal to the total ways
+[00:08:04] to reach the one above, i.e., i-1, j,
+[00:08:08] plus the ways to reach this cell,
+[00:08:11] because you can go here from there, so
+[00:08:14] those ways will also be added.
+[00:08:19] Meaning, we will add up the ways to
+[00:08:21] reach the same row and the cell in the
+[00:08:23] column just to the left.
+[00:08:26] Generally, this is the logic used in DP
+[00:08:28] on grids. Right? But there is a twist
+[00:08:31] here, isn't there?
+[00:08:33] When you are at this i, j and if it
+[00:08:36] turns out to be a mirror cell, you will
+[00:08:38] need one more piece of information:
+[00:08:40] where did I come from to reach this
+[00:08:43] mirror cell?
+[00:08:44] Did I come from above, or did I come
+[00:08:47] from this left cell? You know, this
+[00:08:49] makes us realize one thing: we need to
+[00:08:52] pass on one more piece of information. i
+[00:08:54] , j is not enough. Now, we will also
+[00:08:57] have to pass on which side we came from
+[00:09:00] . Where we came from. So, we will have
+[00:09:03] to keep one more variable.
+[00:09:05] And if I came from the left-hand cell,
+[00:09:09] let's do this.
+[00:09:12] Let's take a variable named 'left'. We
+[00:09:15] will set its value to zero. And if I
+[00:09:17] came from the cell above, we will set
+[00:09:20] its value to one. Okay? So, if I am in
+[00:09:23] this cell. Look here, if I have reached
+[00:09:26] this cell, I will check where I came
+[00:09:28] from. Where I came from. If the value of
+[00:09:31] 'came from' equals 'left', meaning it
+[00:09:33] equals zero, then I will understand that
+[00:09:36] I have come from the left-hand side. If
+[00:09:39] the value of 'came from' is not 'left'
+[00:09:41] but equals 'up'. The value of 'up' is
+[00:09:43] one, so I will understand that I have
+[00:09:44] come from above. So with this help, I
+[00:09:46] can make a decision that if I have come
+[00:09:48] from above into this mirror cell, then
+[00:09:50] what will be my next cell? My next cell
+[00:09:52] will be i, j + 1 because I am going to
+[00:09:54] deflect to the right-hand side. Look, if
+[00:09:56] I have come from above, I will deflect
+[00:09:58] this way. So, I moved to i, j + 1. Right
+[00:10:01] ? So, do you know why I just want to
+[00:10:03] focus on this?
+[00:10:04] To help you realize that we will need
+[00:10:06] one more parameter to solve this problem
+[00:10:09] .
+[00:10:10] i, j is not enough. Isn't it? And why
+[00:10:13] did this parameter come about? Because,
+[00:10:15] man, it has only come about due to this
+[00:10:17] mirror situation. In the cell where the
+[00:10:20] cell value is zero, there is no such
+[00:10:22] issue at all.
+[00:10:24] But in the cell where the value is one,
+[00:10:26] we now have to check where you came from
+[00:10:28] to this cell.
+[00:10:29] From above or from the left-hand side
+[00:10:31] here. So, only an extra parameter has
+[00:10:33] been added because of this mirror cell.
+[00:10:35] So, we have now agreed that we will need
+[00:10:36] three parameters. Now let us solve this
+[00:10:39] . The relation I told you about is
+[00:10:41] generally used like this when we solve
+[00:10:44] bottom-up. But today's problem is a
+[00:10:47] little bit different. So, I will not
+[00:10:48] just create a bottom-up solution. I will
+[00:10:50] also show you how to write the recursion
+[00:10:52] code. Okay? So, let's start from the
+[00:10:54] very basics with recursion. So, let's
+[00:10:57] take some generic cell. Let's assume
+[00:10:59] this is i, j. Right? This is i, j. Now,
+[00:11:03] let's assume the value at this i, j was
+[00:11:08] zero.
+[00:11:10] Now, if the value is zero, then it's
+[00:11:12] fine, there is no problem. I can go
+[00:11:14] right from here. I can go down from here
+[00:11:18] . Because that is what the problem says
+[00:11:19] : from a given cell you can either go
+[00:11:21] right or down. Then there is no problem
+[00:11:23] . What will I do? We just need to make a
+[00:11:25] simple recursion call. So, in recursion
+[00:11:27] , I will find the total count like this
+[00:11:29] . I'll take total = 0. Total plus equals
+[00:11:33] to, go to the right-hand side and find
+[00:11:35] how many number of paths there are. So,
+[00:11:38] we will write a recursive function named
+[00:11:41] solve.
+[00:11:42] I will tell him, hey, this is my grid.
+[00:11:46] And now, which cell am I going to? If I
+[00:11:48] am currently at i j, then what will be
+[00:11:50] my next cell? It will be i j + 1.
+[00:11:53] Because if I am moving right from here,
+[00:11:55] then I am going this way. So, tell me
+[00:11:58] one thing, when you come here to this
+[00:12:01] cell—let's put a question mark here—
+[00:12:03] where did you come from? You came to
+[00:12:06] this cell from the cell on this side. So
+[00:12:08] , you know, it is this cell's duty that
+[00:12:10] when it goes to the next one, it tells
+[00:12:13] it, "Look brother, I came from here." So
+[00:12:15] for this cell, it means it has arrived
+[00:12:19] from the left. So here, I am doing the
+[00:12:22] same thing, that if I am at i j
+[00:12:26] j
+[00:12:27] going to I J + 1. Meaning I am moving to
+[00:12:30] the cell on the right.
+[00:12:32] So I will tell it, right, that I know
+[00:12:34] where I came from?
+[00:12:35] I have come from the left side. Okay? So
+[00:12:37] here in the comma, look, I am using the
+[00:12:40] 'left' variable. Left. Okay? So keep
+[00:12:43] this thing in mind. You have taken a
+[00:12:46] right direction from i J. But the cell
+[00:12:48] you arrived in needs to know where you
+[00:12:50] came from, right? So for that cell, you
+[00:12:52] are from the left, aren't you? You have
+[00:12:53] arrived from the left towards it. Okay?
+[00:12:56] Similarly, total plus equals to, we can
+[00:12:59] either go right or we can go down. So
+[00:13:02] for going down, what will we do? The row
+[00:13:04] will change. i + 1, column will remain
+[00:13:06] the same. Now think for yourself, when
+[00:13:09] you are going down from here, then this
+[00:13:12] i + 1 j needs to know where you came
+[00:13:15] from, right? So I will tell it that, hey
+[00:13:17] , I have come from the cell above you.
+[00:13:20] Meaning, I came from 'up'.
+[00:13:22] So, you know, the benefit of this is
+[00:13:25] that if in the future this cell, if in
+[00:13:28] the future this cell was a one, then now
+[00:13:31] I know where I came from in this cell.
+[00:13:34] Because look, I had already sent the '
+[00:13:36] left' variable here. So when I come to
+[00:13:38] this one, I will see, oh, I came from '
+[00:13:40] left', right?
+[00:13:42] So if I came from 'left', I will go '
+[00:13:44] down', because I am a mirror, and if I
+[00:13:45] come to a mirror from the left, I will
+[00:13:47] go down.
+[00:13:48] If I come from up, I will go right.
+[00:13:50] That's why I am passing on to the next
+[00:13:53] cell that hey, for you, I was from the
+[00:13:56] left, and hey, for you, I was up. Okay?
+[00:14:01] i j tells the next cell. So, this means
+[00:14:05] if my current cell is zero, I can go
+[00:14:09] both right and down.
+[00:14:12] But what if my current cell was one?
+[00:14:15] Let's assume if i j were one, then what
+[00:14:18] would happen? So let's see how to write
+[00:14:20] that. This was for when my i j was zero
+[00:14:23] , then I could go right and down. If my
+[00:14:27] current cell is one, then let me draw a
+[00:14:31] picture here to make it easier. Let's
+[00:14:35] assume my i j value was one. So remember
+[00:14:39] what the problem stated, that if you
+[00:14:40] come to a mirror cell, you don't have to
+[00:14:42] do anything. You just have to directly
+[00:14:44] reflect or deflect. But to deflect, you
+[00:14:46] must know where you came from to reach
+[00:14:48] this cell, right? Right? So I will
+[00:14:52] simply write here that if my grid of i j
+[00:14:57] equals one. Then I just want to know
+[00:15:00] where I came from to reach this cell. So
+[00:15:02] I will use the same variable. If
+[00:15:06] What value of 'came from' was passed to
+[00:15:09] me?
+[00:15:10] If 'left' was passed. Meaning I have
+[00:15:14] come to this cell from the left. Then I
+[00:15:18] have to deflect downwards. So what will
+[00:15:21] I do?
+[00:15:22] I will call the solve function and count
+[00:15:25] all the paths going down to the
+[00:15:27] destination.
+[00:15:28] Grid i + 1
+[00:15:33] j, and when you go down, which variable
+[00:15:36] do you pass? You pass 'up'. So that the
+[00:15:39] one below knows that you have come to it
+[00:15:41] from the cell above. Right?
+[00:15:44] This is simple. We will return all the
+[00:15:47] paths I get from here. And if you didn't
+[00:15:50] come from the left, then in the 'else',
+[00:15:52] it means you came from up. And if you
+[00:15:55] come from up, you have to deflect to the
+[00:15:57] right-hand side. So here, return solve
+[00:16:01] and go to the right-hand side. What does
+[00:16:05] the right-hand side mean?
+[00:16:06] i j + 1 and when you go to the
+[00:16:09] right-hand side, tell the right-hand
+[00:16:11] side cell that you came from its left.
+[00:16:15] This is very important.
+[00:16:16] This variable is the whole game; if you
+[00:16:18] go into any mirror cell, you must know
+[00:16:20] at that moment where you came from.
+[00:16:23] Whether you came from the left or from
+[00:16:24] above. So, all things considered, these
+[00:16:26] were the only two important parts. One
+[00:16:28] thing is that if my current cell is one
+[00:16:30] , then where did I come from to get
+[00:16:32] there?
+[00:16:34] If the current cell is zero, then well,
+[00:16:36] nothing. I just have to either go right
+[00:16:39] to find the answer or go down to find
+[00:16:41] the answer and simply add them up. Okay
+[00:16:45] ?
+[00:16:45] That's it. That was all we had. We will
+[00:16:48] add both these logics inside a simple
+[00:16:49] solve function. Right? Meaning, my solve
+[00:16:53] function. What all am I passing there? I
+[00:16:56] am passing the grid. My row or i, j,
+[00:16:58] whatever variable name you want to keep
+[00:17:00] , take that. And here we are passing one
+[00:17:03] more variable, 'came from', right?
+[00:17:06] And when doing memoization, take a
+[00:17:08] memoization vector here, named T or DP.
+[00:17:11] So we will do the memoization while
+[00:17:14] coding, but these are the four variables
+[00:17:16] we are passing and we are writing two
+[00:17:19] cases.
+[00:17:20] First of all, this is my case number one
+[00:17:23] , this is my case number two, right?
+[00:17:26] So we will write case number A and case
+[00:17:30] number B here, right? And at the top, we
+[00:17:34] will write the base case that, look, if
+[00:17:38] i is greater than or equal to m or j > =
+[00:17:41] if it becomes the number of columns,
+[00:17:44] then you are out of bounds. Return zero
+[00:17:47] . Or it could be that you have reached
+[00:17:49] the destination. If i = m-1. And j = n-
+[00:17:55] 1. Meaning you have reached the
+[00:17:57] destination. Meaning you have found a
+[00:17:59] path, so return one. So you found one
+[00:18:00] path to reach the destination. Return
+[00:18:02] one from here. So as you can see, my
+[00:18:05] recursion code was this simple. We will
+[00:18:07] memoize this as well. Okay? But there is
+[00:18:10] one more thing I want to explain to you
+[00:18:13] : when you call this recursion for the
+[00:18:16] first time, how will you call it? So,
+[00:18:18] you will remember that the robot is
+[00:18:22] starting from 0,0. Meaning your
+[00:18:25] recursion is starting from here. And
+[00:18:26] this value will always be zero. There
+[00:18:28] will be no mirror here. There won't be a
+[00:18:29] mirror at the destination either. So you
+[00:18:31] see, your recursion is starting from
+[00:18:33] here. So when you call the solve
+[00:18:35] function for the first time, you will
+[00:18:37] pass the grid and pass what?
+[00:18:39] 0, 0, and you will also have to put in
+[00:18:42] where you came from to this cell.
+[00:18:44] Right? Because you are starting the
+[00:18:46] recursion from here for the first time,
+[00:18:48] right? So, you have just started from
+[00:18:50] this cell. Right? After this, wherever
+[00:18:53] you go, you will pass the 'came from'
+[00:18:56] variable.
+[00:18:57] But since you just started here, it
+[00:19:00] doesn't matter what value you put for '
+[00:19:02] came from' because this is the starting
+[00:19:05] point, so just put anything there—zero
+[00:19:07] or one, or sorry, I mean left or up—it
+[00:19:10] doesn't matter.
+[00:19:12] Okay, from here, when the recursion goes
+[00:19:15] further right or left, we will correctly
+[00:19:17] set the 'came from' value to left or up
+[00:19:20] , whatever is needed.
+[00:19:22] But here, you have just started; you
+[00:19:24] haven't come from above or from the side
+[00:19:26] . So, I will just put any random value
+[00:19:29] here. Right? So, we will simply call
+[00:19:32] this solve function, and this recursion
+[00:19:34] will do everything and give the final
+[00:19:36] answer. The total number of paths to
+[00:19:38] reach from 0 to m-1, n-1. So, let's
+[00:19:41] write this recursion code. We will also
+[00:19:43] memoize it and then convert the same
+[00:19:46] recursion code into bottom-up. So, let's
+[00:19:48] start the code for this. Recursion with
+[00:19:50] memoization. First, let's define some
+[00:19:52] variables. m and n, which are my number
+[00:19:55] of rows. These are my number of columns
+[00:19:57] . This is my module. And remember, I
+[00:20:00] said I would keep two more variables.
+[00:20:03] int left, int up.
+[00:20:07] Right? What do left and up mean?
+[00:20:10] Left means you were coming from the left
+[00:20:12] , and up means you were coming from
+[00:20:14] above. Right? So, its value is zero.
+[00:20:16] Let's assume its value is one.
+[00:20:18] So, I will also write here that arrived
+[00:20:22] at current cell from left cell.
+[00:20:27] It means it was moving in the right
+[00:20:30] direction. Right? Similarly, arrived at
+[00:20:35] current cell from the cell above. It
+[00:20:39] means it was moving down. Now, let's
+[00:20:42] start from here. First, let's populate m
+[00:20:45] and n.
+[00:20:47] grid.size (), n = grid [0] .size ().
+[00:20:54] Now after this, it's simple; we will
+[00:20:56] call our solve function.
+[00:20:58] Return solve, and what will we pass in
+[00:21:00] it?
+[00:21:01] We will pass the grid. Pass zero. Pass
+[00:21:03] zero. I am starting from zero, zero. And
+[00:21:05] for the 'came from' variable, just put
+[00:21:08] any value. Zero or one; I will put left
+[00:21:11] .
+[00:21:11] Left or up, just put anything; it
+[00:21:13] doesn't matter. Uh, we aren't doing
+[00:21:15] memoization right now. So, let's leave
+[00:21:17] it as is. Now, let's start here.
+[00:21:21] In the solve function, we are passing
+[00:21:24] the grid.
+[00:21:26] Int i, int j—instead of i and j, you can
+[00:21:30] use row and column if you want. And int
+[00:21:33] 'cameFrom', to track where you came from
+[00:21:36] .
+[00:21:36] Right? So this was a quite important
+[00:21:38] part, and I found it to be a good
+[00:21:40] problem. It made the normal DP on grids
+[00:21:42] a bit tricky.
+[00:21:44] If my i is > = m, sorry, or if my j
+[00:21:47] becomes > = n, then obviously return
+[00:21:51] zero.
+[00:21:52] You have gone into an invalid path.
+[00:21:55] And if my i equals m-1 and j equals n-1
+[00:21:59] . That means you have found a path to
+[00:22:03] reach the destination. And if that's not
+[00:22:05] the case, then let's check. First of all
+[00:22:07] , let's check for the mirror. What will
+[00:22:10] be needed to check the mirror? If grid
+[00:22:12] of i, j equals 1, then we need to check
+[00:22:16] that, hey, this is a mirror. I will
+[00:22:20] write it here. This is a mirror.
+[00:22:22] So find out where we came from; check if
+[00:22:25] 'cameFrom' equals 'left'.
+[00:22:28] If I came from the left-hand side, then
+[00:22:30] I will be able to go down now. Right? So
+[00:22:33] I will simply call the solve function
+[00:22:36] grid, i + 1, j, and now when you are
+[00:22:38] going down, tell it that you just came
+[00:22:41] from the up cell. Right?
+[00:22:44] Else, return solve grid. If you didn't
+[00:22:49] come from left but came from up, then
+[00:22:51] you will go right. i, j + 1, and when
+[00:22:54] going right, tell it that you came from
+[00:22:56] the left-hand side. So we have handled
+[00:22:58] cell 1, in case it is a mirror cell. And
+[00:23:01] if it's not cell 1, meaning its value is
+[00:23:03] 0, then how will the total path count be
+[00:23:06] calculated? You can either go right or
+[00:23:08] you can go down.
+[00:23:10] So total path count will be equal to
+[00:23:12] total path count plus go right.
+[00:23:14] How will you go right? Grid of i, j + 1
+[00:23:16] , and when you go right, tell it that
+[00:23:20] you came from the left-hand side. And do
+[00:23:24] modulo mode here. Similarly, besides
+[00:23:27] right, you can also go down. So we have
+[00:23:30] to look at both possibilities.
+[00:23:32] So for down, i + 1, j, and write 'up'
+[00:23:35] here.
+[00:23:37] Return whatever total path count came
+[00:23:40] here. Now you can also memoize this. So
+[00:23:42] let's memoize it right now. For
+[00:23:44] memoization, you see, this i, j is
+[00:23:47] changing, and one more variable is
+[00:23:49] changing: 'cameFrom'.
+[00:23:52] So what is happening is that for my
+[00:23:55] memoization, the data structure I use
+[00:23:57] will need to store i and j; it will have
+[00:24:00] to be 2D.
+[00:24:02] But as you can see, there are two
+[00:24:04] possible values for 'came from', zero
+[00:24:05] and one. So let's do one thing, let's
+[00:24:08] take a 2D vector, but the value inside
+[00:24:11] it can be one of two things: if it came
+[00:24:14] from 'left', what is the answer? So for
+[00:24:17] now, let's set it to -1. If it came from
+[00:24:19] 'right', what is the answer?
+[00:24:22] Let's set -1 here as well. So for
+[00:24:24] memoization, what will I simply do? I
+[00:24:26] will take a 3D vector. Or you can do
+[00:24:29] this: I have created these two vectors
+[00:24:31] of vectors for this i. And the value
+[00:24:34] inside it will either be for the left
+[00:24:36] one or for the up one 'came from'. So
+[00:24:39] let's do one thing. We can just take an
+[00:24:41] array here. We can take an array of ints
+[00:24:44] of size two. Right? We took a vector of
+[00:24:47] vectors for i and j, and for the two
+[00:24:50] values inside, we took an array of size
+[00:24:52] two. You can do it this way too,
+[00:24:54] whatever feels right or easy to you.
+[00:24:56] Let's define this. Let's take m + 1 rows
+[00:24:59] in total for safety.
+[00:25:01] And a vector of arrays of ints of size
+[00:25:05] two.
+[00:25:08] It will have n.
+[00:25:09] There will be n columns. Let's
+[00:25:11] initialize all values to -1, -1. If you
+[00:25:14] find this complex, you can also just
+[00:25:15] take a normal vector of vectors of
+[00:25:17] vectors. You can also take a vector of
+[00:25:18] vectors of pairs. Because you only need
+[00:25:20] two types of values, for left and for up
+[00:25:23] . However you want to memoize, you can
+[00:25:26] do it. So now we will have to pass this
+[00:25:28] t as well. Let's pass t.
+[00:25:33] Vector of ints, here T...sorry, I passed
+[00:25:38] T. Now, before doing everything here,
+[00:25:42] let's check if 't of i, j and came from
+[00:25:46] ' value is not equal to -1, meaning the
+[00:25:51] answer has already been calculated, then
+[00:25:55] we will simply return 't of i, j, came
+[00:26:00] from'. Right? And if that is not the
+[00:26:03] case, then wherever I am returning the
+[00:26:05] answer, I will memoize it here. I will
+[00:26:07] memoize it there as well. And here at
+[00:26:09] the end, I will add the memoization. And
+[00:26:11] here, everywhere I call solve, I will
+[00:26:14] have to pass t. I have to pass T here as
+[00:26:17] well. I have to pass t here too. Now
+[00:26:19] let's try submitting this. Great, we
+[00:26:21] have passed all these cases. What will
+[00:26:23] be the time complexity? How many total
+[00:26:24] states will there be? It's m*n, and here
+[00:26:28] we have two, right? Two values are
+[00:26:30] possible in every grid. So you can say m
+[00:26:33] *n*2. But if you look at it, two is a
+[00:26:35] constant. So the time complexity for the
+[00:26:37] total states I will visit will be m*n*2
+[00:26:40] ; remove the two, it is a constant.
+[00:26:42] Similarly, my space will also be the
+[00:26:44] same. O (m*n*2); remove the 2, as two is
+[00:26:47] constant. Now let's convert this same
+[00:26:50] code into bottom-up. So let's write the
+[00:26:52] bottom-up code. And we will use the
+[00:26:54] exact same code we used in recursion. We
+[00:26:56] always do bottom-up using the recursion
+[00:26:58] code itself. And if you have watched my
+[00:27:00] DP concepts playlist, you would have
+[00:27:02] understood how easy this is. To convert
+[00:27:05] any recursion code to bottom-up. I have
+[00:27:08] explained many things in detail there.
+[00:27:09] So I will do exactly the same thing here
+[00:27:11] .
+[00:27:12] Just like the 3D memoization vector here
+[00:27:14] , I will take a DP vector here too.
+[00:27:18] Every grid, whatever grid this is, will
+[00:27:20] have two values. So I can say it like
+[00:27:23] this, equals to, it will have two values
+[00:27:25] . Do you see? It is a vector of vectors
+[00:27:28] of an array of size two. So here, this
+[00:27:31] is an array of size two. For now, let's
+[00:27:33] keep zero and zero here. Do you know
+[00:27:35] what this means?
+[00:27:37] If I write it like this, t of i j, if
+[00:27:41] there is a left here, remember what left
+[00:27:44] means?
+[00:27:46] Left means zero, so understand it like
+[00:27:49] this: t of i j, its zeroth index, and
+[00:27:52] this is the first index, so you can say
+[00:27:55] this zeroth is my left and first is my
+[00:27:59] up. Okay? So I am saying the same thing
+[00:28:01] here.
+[00:28:01] T of i j's array, its left, what does
+[00:28:04] this mean?
+[00:28:07] The total number of ways to reach t of i
+[00:28:09] j if you come from the left will be
+[00:28:12] equal to whatever its value is.
+[00:28:15] Let's assume its value is x. Similarly,
+[00:28:17] t of i j.
+[00:28:20] Up. What does this mean? Let's assume
+[00:28:24] the total number of ways to reach i, j
+[00:28:26] if you come from above = y. If it were x
+[00:28:29] , y instead of zero, zero here. So that
+[00:28:31] is just its definition. So we have
+[00:28:33] already done our state definition, it
+[00:28:35] will be this.
+[00:28:36] And now, pay attention to one thing, the
+[00:28:40] DP array or memoization array I actually
+[00:28:43] took, it was nothing but a simple 2D
+[00:28:46] array, or you could also call it a 3D
+[00:28:49] array.
+[00:28:51] This 2D array has two vectors. It is a
+[00:28:54] vector of size two everywhere. So now
+[00:28:56] pay attention to one thing. If I ask you
+[00:28:58] what t of 0
+[00:29:02] is, the cell, this is the cell. In this
+[00:29:05] , this is a vector.
+[00:29:08] Consider this an array. This is left and
+[00:29:12] this is up. Or you can also write it
+[00:29:15] like this. t of 0
+[00:29:19] left.
+[00:29:21] That will give you this entry. t of 0
+[00:29:28] up, that will give you this entry. So,
+[00:29:31] do you know what t of 0 left means?
+[00:29:34] That you reached 0 from the left.
+[00:29:37] So how many possible ways are there to
+[00:29:39] reach here? It's simple. There is only
+[00:29:41] one possible way to reach. Because there
+[00:29:43] is only one possible way to come to 0
+[00:29:45] from 0, since you are already standing
+[00:29:47] there. Right? So 0
+[00:29:52] left = 1. Similarly, 0 up = 1. Because
+[00:29:55] you are standing right there and there
+[00:29:57] is only one way to reach there. So that
+[00:29:59] is one. Now look at the tricky part,
+[00:30:01] let's look at this one first. How many
+[00:30:04] possible ways are there to come here?
+[00:30:05] There is only one way to come here. Only
+[00:30:08] from the left. Okay? So you know, and
+[00:30:11] look here too. There is only one
+[00:30:12] possible way here too. Only from the
+[00:30:14] left. There is only one possible way
+[00:30:15] here too. Only from the left. Only from
+[00:30:18] the left. Right? And pay attention to
+[00:30:20] one more thing here. If at any point of
+[00:30:23] time, let's assume my original grid,
+[00:30:26] suppose there is a 1 here. If I have a 1
+[00:30:29] here in the zeroth row, will you ever be
+[00:30:32] able to go to this cell or if there were
+[00:30:34] more cells ahead, would you be able to
+[00:30:36] go there? You will not be able to. Why?
+[00:30:38] Because look, you cannot come to this
+[00:30:40] cell from above because it's out of
+[00:30:42] bounds, and if you want to come from
+[00:30:44] here, you see, it will never let you
+[00:30:47] come because when you go from here to
+[00:30:49] here, it will deflect you downwards. Do
+[00:30:51] you know what this means? If there is a
+[00:30:54] one anywhere in the zeroth row, you
+[00:30:56] cannot go to any cells after that. Okay
+[00:30:59] ?
+[00:31:00] Similarly, if I talk about the zeroth
+[00:31:02] column. Let's assume this is the zeroth
+[00:31:04] column. If a one appears anywhere here,
+[00:31:06] you will never be able to go to the
+[00:31:08] cells below it. Cross here, cross here,
+[00:31:10] cross here. Because if you came from
+[00:31:12] above to this one, you would be
+[00:31:13] deflected like this. Right? So, one
+[00:31:16] thing you can do is that its value here
+[00:31:21] is zero, sorry, 1. Isn't it? Or I can
+[00:31:24] write it like this. There is one
+[00:31:26] possible way to come from the left in 0
+[00:31:29] . There is one possible way to come from
+[00:31:31] above in 0. Now, let me do one thing. I
+[00:31:34] will fill the zeroth row. Similarly, we
+[00:31:39] can fill the zeroth column beforehand as
+[00:31:41] well. Right? So, I am filling the zeroth
+[00:31:43] row right now. Look, watch carefully
+[00:31:45] what I am writing. For int column = 1,
+[00:31:48] let's start. Because in the zeroth row,
+[00:31:52] I have already filled the zeroth column
+[00:31:54] part, right? I need to fill this. I need
+[00:31:56] to fill this. I need to fill this and
+[00:31:58] this. Right? So to fill the zeroth row,
+[00:32:02] column = 1, column < n, column ++. Now,
+[00:32:06] tell me one thing, I am at the zeroth
+[00:32:09] row of t. And where can I come from? I
+[00:32:11] can only come from the left. I just told
+[00:32:13] you that. You can only come from the
+[00:32:16] left. So, in whichever column you are in
+[00:32:18] the zeroth row, you will always come
+[00:32:20] from the left. Left. Okay? And there is
+[00:32:23] only one possible way, so put one here.
+[00:32:25] And put a check, the most important one
+[00:32:29] , if grid of this i, sorry, this zeroth
+[00:32:32] row, col has a value of one, it means
+[00:32:36] you cannot go any further. So, just
+[00:32:39] break from here. Right?
+[00:32:42] You cannot go beyond that.
+[00:32:44] Let's assume there is a one here, then
+[00:32:46] all the values after that, or you won't
+[00:32:48] be able to reach those cells.
+[00:32:51] So, for them, it will remain 0, 0, 0, 0
+[00:32:55] , 0. Okay? My zeroth row is filled.
+[00:32:58] Similarly, what will I do now? The
+[00:33:01] zeroth column, which is mine. You fill
+[00:33:03] the zeroth column. These are all base
+[00:33:06] cases that you can fill separately. So,
+[00:33:08] who all do I need to fill? Look. So, who
+[00:33:10] needs to be filled in the zeroth column
+[00:33:12] ? We need to handle this and this.
+[00:33:13] Meaning, we will start from row number
+[00:33:14] one.
+[00:33:15] For row = 1, row is < n, row ++
+[00:33:23] Now pay close attention, in this row, in
+[00:33:26] this zeroth column, I can only come from
+[00:33:29] above.
+[00:33:30] There is only one possible way.
+[00:33:32] So put one here and add a check that if
+[00:33:35] the value in the grid at this row,
+[00:33:38] column is one, then I cannot go below it
+[00:33:40] .
+[00:33:41] Then break right here. So now the first
+[00:33:44] row and first column are populated, so
+[00:33:46] we can now populate the remaining cells
+[00:33:48] .
+[00:33:50] But you know, one way to populate the
+[00:33:53] remaining cells is to write the exact
+[00:33:57] same logic as this code, or use the
+[00:34:00] normal bottom-up relation I told you at
+[00:34:04] the very beginning.
+[00:34:06] If I scroll up a bit, do you remember? I
+[00:34:09] told you that in DP on grids, we often
+[00:34:11] write relations like this: if you are at
+[00:34:14] i, j, where could you have come from?
+[00:34:16] You would come from i-1, j. You would
+[00:34:18] come from i, j-1. So you can write it
+[00:34:20] like that too. So let's do one thing.
+[00:34:21] I'll give you a little bonus now. I will
+[00:34:24] explain both methods to you. Okay? So
+[00:34:26] first, let's do one thing. Let's solve
+[00:34:28] it the way DP on grids is usually solved
+[00:34:31] . Let's fill the remaining cells. Now
+[00:34:34] filling the remaining cells. I have
+[00:34:36] normally started from row = 1, column =
+[00:34:39] 1 because I have already filled row zero
+[00:34:41] and column zero. Okay? In DP on grids,
+[00:34:44] that's what it's all about, right? What
+[00:34:46] do I need to fill now? I need to fill t
+[00:34:50] of i, j now.
+[00:34:52] Right? So, my first question should be,
+[00:34:55] where am I coming from right now? Am I
+[00:34:57] coming from the left? So which cell
+[00:34:59] would be on the left? If I am at i, j,
+[00:35:01] which will be my left cell? It will be i
+[00:35:04] , j-1. So now I will show this by
+[00:35:06] drawing a diagram. Let's assume this is
+[00:35:09] my i, j and if I have come here from the
+[00:35:12] left, then which cell is on the left? i
+[00:35:15] , j-1. Now look, there is one problem:
+[00:35:18] there are two possibilities on the
+[00:35:21] left-hand side.
+[00:35:23] It could be one or it could be zero here
+[00:35:26] . If it is one here, do you know what I
+[00:35:29] will have to do? Now think for yourself
+[00:35:32] , if there is a one here and you arrived
+[00:35:34] this way, it means you definitely came
+[00:35:36] from above; you must have reached this
+[00:35:38] one from above to come here, right?
+[00:35:40] Otherwise, if you had come to this one
+[00:35:42] from the side, you would have gone that
+[00:35:43] way. But I just told you that I arrived
+[00:35:46] at this i, j from here, so I must have
+[00:35:48] certainly come from above. So, if I
+[00:35:51] write this diagram in code, look how it
+[00:35:54] will be written: i, j, I am coming from
+[00:35:57] 1, so if...I will have to check if this
+[00:36:00] grid, the left-hand side cell of mine i
+[00:36:03] , j-1, is it a one? If it is one, where
+[00:36:06] will I get its answer from? From here.
+[00:36:11] Where would I have come from to get here
+[00:36:12] ? I must have come from above, right? So
+[00:36:14] look at how I will calculate the answer
+[00:36:15] . Before calculating the answer, I'll do
+[00:36:17] one thing: to avoid confusion, I'll
+[00:36:20] replace i, j with row, col, because the
+[00:36:22] for-loop variables are row and col. So,
+[00:36:25] I'll write row here, and col-1 here;
+[00:36:29] over here, it will be row. Over here, it
+[00:36:32] will be col-1. I am just replacing i and
+[00:36:35] j with row and col. Row, col and here
+[00:36:38] row, col-1. So now look, what do I need
+[00:36:41] to find?
+[00:36:42] I need to find, for this current row and
+[00:36:45] current column, where am I trying to
+[00:36:47] come from?
+[00:36:48] I am trying to come from the left-hand
+[00:36:50] side. Left. What does that mean?
+[00:36:53] That the total number of paths to reach
+[00:36:56] row, col if I come from the left-hand
+[00:36:59] side will be equal to me asking this
+[00:37:02] left-hand side cell, "Hey, how many ways
+[00:37:05] did you have to be reached?"
+[00:37:08] Do you know what it will say? "Do you
+[00:37:09] know how many ways there were to reach
+[00:37:11] me?"
+[00:37:12] t of row, col-1, meaning the total
+[00:37:14] number of ways to reach this cell from—
+[00:37:17] remember?
+[00:37:19] You could only have come here from above
+[00:37:20] . Only then would you come here. So for
+[00:37:23] this, it will be "up." For this cell, I
+[00:37:25] will have to take the total count from
+[00:37:27] above. So I will write exactly that here
+[00:37:29] . I am calculating the answer from t of
+[00:37:34] row, col-1. But I need the answer for
+[00:37:37] its "up." Because only if I come to this
+[00:37:40] cell from above can I reach this cell,
+[00:37:42] row, col. So this is quite tricky, but I
+[00:37:44] think you should be able to visualize it
+[00:37:46] this way as well. Okay?
+[00:37:49] And what if the left cell's value wasn't
+[00:37:52] one, but zero instead?
+[00:37:54] Let me draw a diagram here to show you
+[00:37:57] that as well. So, what are you doing
+[00:38:00] right now?
+[00:38:01] You are calculating the count of ways to
+[00:38:03] reach the row, column from this left
+[00:38:05] cell.
+[00:38:06] Which one is the left cell? It is row,
+[00:38:08] column-1, and this time its value is
+[00:38:12] zero instead of one. So, it's obvious
+[00:38:15] that I can simply calculate it this way
+[00:38:18] : t of row, column from the left cell,
+[00:38:22] meaning how many ways can we reach here
+[00:38:25] from the left? It will be equal to the
+[00:38:27] number of ways to reach that cell. And
+[00:38:29] since this is zero, right? Since this is
+[00:38:31] zero, one could have arrived here from
+[00:38:33] this side and also from that side. So,
+[00:38:35] what will I do simply? It will be equal
+[00:38:38] to asking t of row, column-1: "Hey, tell
+[00:38:41] me, how many ways did you have to be
+[00:38:44] reached?" It will say, "Since I am zero
+[00:38:46] , I could have been reached from the
+[00:38:48] left."
+[00:38:49] Plus, that same cell says, "Since I am
+[00:38:52] zero, I could also have been reached
+[00:38:55] from above." Okay? So you can come from
+[00:38:58] here like this, and you can also come
+[00:39:00] straight here like that. Is it clear up
+[00:39:01] to here? So, this was quite important.
+[00:39:04] I would suggest that you watch this part
+[00:39:07] again so that you understand how to
+[00:39:09] visualize a 2D array and how easily we
+[00:39:12] can write these conditions with its help
+[00:39:14] .
+[00:39:15] The relations that we are able to write
+[00:39:17] . So, did you notice what we filled just
+[00:39:20] now?
+[00:39:21] We filled the ways to reach t of row,
+[00:39:25] column from the left cell.
+[00:39:28] That's why you see we filled the left
+[00:39:30] part here.
+[00:39:31] Now, we can come to the current cell
+[00:39:33] from the left or we can come from above
+[00:39:36] . So, here I will write t of row, column
+[00:39:42] from up, and what does up mean?
+[00:39:48] We will ask the same question to the row
+[00:39:51] -1, column cell.
+[00:39:53] So there too, we will write that if the
+[00:39:57] grid of row-1, meaning the cell above,
+[00:40:02] has a value of one, then we will apply
+[00:40:06] the exact same logic there: where is t
+[00:40:10] of row, column coming from? It is coming
+[00:40:14] from up. It will be equal to asking the
+[00:40:17] cell above.
+[00:40:18] Row-1, column.
+[00:40:21] Now remember the cell above, notice this
+[00:40:24] . You just want to know how many ways
+[00:40:26] there are from the cell above, right? So
+[00:40:28] let's assume you are currently at row,
+[00:40:32] column, and the cell above is row-1,
+[00:40:35] column, right? Okay, and you want to
+[00:40:39] find out how many ways there are to
+[00:40:42] reach this cell if I come here from
+[00:40:45] above? So, I am asking the one above, "
+[00:40:47] Hey, how many ways do you have to be
+[00:40:49] reached?" And if the one above was my
+[00:40:51] mirror, do you see how I can come down?
+[00:40:54] Only when the path from here must have
+[00:40:57] gone to the one above, right? Meaning,
+[00:40:59] paths must have come to the one above
+[00:41:01] from the left, only then would it have
+[00:41:03] gone down to this row, column. So, that
+[00:41:06] is why I will check in the one above,
+[00:41:07] pay attention.
+[00:41:09] I will ask the one above, "Hey, how many
+[00:41:11] total ways do you have to be reached
+[00:41:13] from the left," because only paths
+[00:41:16] coming from the left will go down and
+[00:41:18] come here.
+[00:41:19] They will come to this. That is why you
+[00:41:21] see I am only asking it about the left.
+[00:41:23] And if that is not the case, meaning if
+[00:41:26] the value of grid is zero instead of one
+[00:41:28] , then it's chill.
+[00:41:30] Meaning, in the else block, I will write
+[00:41:32] that I will ask the cell above, "How
+[00:41:34] many ways do you have to be reached from
+[00:41:36] the left and from above?" I can come
+[00:41:38] this way and also this way.
+[00:41:41] So, I will ask T of row, column about
+[00:41:45] both from above.
+[00:41:48] How many ways did you have to be reached
+[00:41:51] from the left?
+[00:41:54] And plus, how many ways did you have to
+[00:41:57] be reached from row-1, column from above
+[00:42:00] ?
+[00:42:01] Okay? So, I can reach this current cell
+[00:42:05] through both ways. That's why we added
+[00:42:08] both here.
+[00:42:10] This entire for loop of mine will just
+[00:42:13] finish.
+[00:42:14] Both conditions will be finished.
+[00:42:17] In the end, what will happen is that my
+[00:42:20] m-1 and n-1 cell will store two values.
+[00:42:23] One coming from the left and one coming
+[00:42:25] from above. I need both paths. So, we
+[00:42:28] will add both. Meaning, what will I
+[00:42:30] return?
+[00:42:31] I will return t of m-1, n-1 cell's
+[00:42:35] possible paths from the left plus t of m
+[00:42:39] -1, n-1 (from the right, sorry, from
+[00:42:43] above) possible paths, and don't forget
+[00:42:48] to take the modulo.
+[00:42:50] We will take the modulo, so we will get
+[00:42:53] the total paths.
+[00:42:56] Is it clear up to here, because look,
+[00:42:58] when you come to the last cell m-1 and n
+[00:43:01] -1, how do you reach it?
+[00:43:03] You can arrive at this either from here
+[00:43:05] or from here.
+[00:43:06] That is why I returned the count of
+[00:43:09] paths coming from the left and paths
+[00:43:13] coming from above, added to whatever
+[00:43:16] value was stored here. Did you
+[00:43:19] understand this? So, this method I have
+[00:43:20] written for bottom-up is a very common
+[00:43:23] approach. Do you know what we do in this
+[00:43:24] ? I generally call this DP on Grids.
+[00:43:29] You know what we do is, for a given cell
+[00:43:32] (i, j), we write the relation based on
+[00:43:34] where you can come from.
+[00:43:37] Look here, for a given cell, if you are
+[00:43:40] coming from the left, what will be its
+[00:43:42] relation? If you are coming from above,
+[00:43:44] what will the relation be? Why did we
+[00:43:46] have to add an extra trick here? Because
+[00:43:49] there could be a mirror here as well.
+[00:43:51] But we are following the same principle
+[00:43:53] , that from where can we reach cell (i,
+[00:43:56] j)? We add the paths from there into
+[00:43:58] this.
+[00:43:59] Okay. So, I get the total paths for (i,
+[00:44:01] j) here as well. Now, another way that I
+[00:44:03] sometimes use is to simply copy-paste my
+[00:44:07] recursion and memoization code into the
+[00:44:10] bottom-up approach. The code starts
+[00:44:12] looking exactly the same. Many people
+[00:44:15] prefer this because it is an exact
+[00:44:17] copy-paste of the recursion code.
+[00:44:20] But this one is more fun because you
+[00:44:21] have to visualize and see how many paths
+[00:44:23] you get if you come from above.
+[00:44:26] How many paths you get if you come from
+[00:44:27] below here. And so on. So, let's do one
+[00:44:28] thing.
+[00:44:29] Just as a bonus, I will show you this
+[00:44:31] approach too, of how the code would look
+[00:44:33] if I copy-paste the recursion-memo code
+[00:44:35] into bottom-up.
+[00:44:36] So look, so the video doesn't get too
+[00:44:38] long. I have written both styles of
+[00:44:41] bottom-up, and I will navigate and show
+[00:44:44] them to you here. The first approach was
+[00:44:46] the proper way of DP on Grids, where you
+[00:44:49] visualize and derive the relation. This
+[00:44:51] is that method. See, I have taken the
+[00:44:53] bottom-up vector. Where t [row][col][
+[00:44:55] left] tells us what? Number of ways to
+[00:44:57] reach this cell by entering from the
+[00:44:59] left. And what will this become? By
+[00:45:01] entering from the above. And here I
+[00:45:04] stored t [0][0][left] = 1. Because you
+[00:45:07] are at the starting cell itself here.
+[00:45:09] And what did I do first of all? Filled
+[00:45:11] the zeroth row. Filled the zeroth column
+[00:45:14] . Right? I have written full comments so
+[00:45:16] that everything is clear here. After
+[00:45:18] that, I am filling the rest. Remember, I
+[00:45:20] just showed you writing this entire code
+[00:45:22] . So, just to save my time.
+[00:45:24] I am just showing you the code already
+[00:45:27] written here. Right? And at the
+[00:45:29] destination, you just had to send the
+[00:45:32] sum of both left and up. So, the entire
+[00:45:34] code is exactly what I showed you. If
+[00:45:37] you submit this, it will pass all the
+[00:45:38] test cases. Now, let me show you the
+[00:45:40] second code as well. See, it is the same
+[00:45:42] normal one. Left, up, everything is
+[00:45:44] completely the same. It is just a copy
+[00:45:46] of that recursion memoization code.
+[00:45:49] Right? The bonus one I told you about.
+[00:45:51] Reached the destination or not?
+[00:45:53] If you reached, and if the current cell
+[00:45:56] has a value of 1, then where will you
+[00:45:58] get the answer from?
+[00:46:01] Row + 1, column up if you came from left
+[00:46:03] , otherwise row, column + 1 left if you
+[00:46:06] came from up.
+[00:46:07] See, it is exactly the same relation we
+[00:46:09] wrote in recursion.
+[00:46:11] Okay? So, finally, we got the answer
+[00:46:15] from 0, left. So, I hope you have
+[00:46:17] understood this. If you have any doubts
+[00:46:18] , raise them in the comment section, I
+[00:46:19] will try to help out. See you in the
+[00:46:20] next video. Thank you.
