@@ -9,15 +9,16 @@ dotenv.config()
 env.allowRemoteModels = false;
 env.localModelPath = "../models/";
 
+const qdrant = new QdrantClient({
+    url:process.env.QDRANT_URL,
+    apiKey:process.env.QDRANT_API_KEY
+})
+
 const extractor = await pipeline(
     "feature-extraction",
     "Xenova/all-MiniLM-L6-v2"
 );
 
-const qdrant = new QdrantClient({
-    url:process.env.QDRANT_URL,
-    apiKey:process.env.QDRANT_API_KEY
-})
 const getEmbedding = async (text) => {
     const output = await extractor(text, {
         pooling: "mean",
@@ -70,7 +71,7 @@ const askLLM = async (userPrompt,context)=>{
             let messages = [
                 {
                     "role":"system",
-                    "content":`Answer the user Query strictly based on the context:${context}.Do not invent answer from yourself if it not relevant just say i dont have an idea about that.`
+                    "content":`You are a video timeStamp teller, user will tell you what he wants to watch and you have to Answer the user Query strictly based on the context:${context} and with time stamp .Do not invent answer from yourself if it not relevant just say i dont have an idea about that.`
                 },
                 {
                     "role":"user",
@@ -86,28 +87,27 @@ async function main() {
     await createCollection();
     const query = "Hello everyone, welcome to my channel,";
     const query_emb = await getEmbedding(query);
-//    const data_emb = await getEmbedding(
-//     data.map(chunk => chunk.text)
-//    )
-//    const points = data.map((chunk,index)=>({
-//         id:index+1,
-//         vector:data_emb[index],
-//         payload:{
-//             time:chunk.time,
-//             text:chunk.text
-//         }
-//     }))
-//     await storeText(points);
+   const data_emb = await getEmbedding(
+    data.map(chunk => chunk.text)
+   )
+   const points = data.map((chunk,index)=>({
+        id:index+1,
+        vector:data_emb[index],
+        payload:{
+            time:chunk.time,
+            text:chunk.text
+        }
+    }))
+    await storeText(points);
     const context = await qdrant.query(COLLECTION,{
         query:query_emb,
         limit:3,
         with_payload:true
     });
     const combinedContext = context.points
-    .map(point => point.payload.text)
+    .map(point => `${point.payload.time}: ${point.payload.text}`)
     .join("\n");
-    console.log(context.points);
-    //askLLM(query,combinedContext);
+    askLLM(query,combinedContext);
 }
 
 main().catch(console.error);
